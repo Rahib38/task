@@ -1,0 +1,7 @@
+.banner{
+    background: url('../../../../assets/home-banner.png');
+    height: 520px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
