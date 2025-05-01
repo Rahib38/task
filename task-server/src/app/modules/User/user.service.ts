@@ -1,13 +1,18 @@
 import * as bcrypt from "bcrypt";
-import { UserRole } from "../../../generated/prisma";
+import { User, UserRole } from "../../../generated/prisma";
 import prisma from "../../../shared/prisma";
 
-const createUser = async (data: any) => {
-  const hashedPassword: string = await bcrypt.hash(data.password, 12);
+const createUser = async (data: Partial<User>) => {
+
+  if(!data.name || !data.email || !data.password){
+    throw new Error("required fileds missing")
+  }
+
+  const hashedPassword: string = await bcrypt.hash(data?.password as string, 12 );
 
   const userData = {
-    name: data.user.name,
-    email: data.user.email,
+    name: data.name,
+    email: data.email,
     password: hashedPassword,
     role: UserRole.USER,
   };

@@ -5,6 +5,6 @@ import { UserRole } from "../../../generated/prisma";
 
 const router = express.Router();
 
-router.post("/", auth(UserRole.ADMIN, UserRole.USER), userController.createUser);
+router.post("/", userController.createUser);
 
 export const userRoutes = router;

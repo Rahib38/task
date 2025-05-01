@@ -209,7 +209,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:123456@localhost:5432/feni_health_care?schema=public"
+        "value": "postgresql://postgres:123456@localhost:5432/task?schema=public"
       }
     }
   },
