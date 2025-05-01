@@ -5,5 +5,7 @@ export interface CreateTaskPayload {
     deadline?: string | Date;
     priority?: 'LOW' | 'MEDIUM' | 'HIGH';
     userId: string;
+    searchTerm?: string | undefined;
+
   }
   
