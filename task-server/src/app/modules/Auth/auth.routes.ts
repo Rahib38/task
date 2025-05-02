@@ -8,11 +8,11 @@ router.post("/login", authController.loginUser);
 
 router.post("/refresh-token", authController.refreshToken);
 
-router.post(
-  "/passwordChange",
-  auth(UserRole.ADMIN, UserRole.DOCTOR, UserRole.PATIENT, UserRole.SUPER_ADMIN),
-  authController.changePassword
-);
+// router.post(
+//   "/passwordChange",
+//   auth(UserRole.ADMIN, UserRole.DOCTOR, UserRole.PATIENT, UserRole.SUPER_ADMIN),
+//   authController.changePassword
+// );
 
 router.post("/forgotPassword", authController.forgotPassword);
 

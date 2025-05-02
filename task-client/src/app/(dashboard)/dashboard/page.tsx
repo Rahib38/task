@@ -12,6 +12,7 @@ import Image from "next/image";
 import Navbar from "./Navbar";
 import Banner from "@/components/dashboard/Banner/Banner";
 import TaskCard, { TaskStatus } from "@/components/dashboard/Card/TaskCards";
+import Link from "next/link";
 
 
 export default function Dashboard() {
@@ -67,7 +68,7 @@ export default function Dashboard() {
               </SelectContent>
             </Select>
           </div>
-          <Button>Add New Task</Button>
+          <Link href={"/dashboard/task"}><Button>Add New Task</Button></Link>
         </div>
 
         {/* Task Cards */}

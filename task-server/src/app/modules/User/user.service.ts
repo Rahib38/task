@@ -24,6 +24,7 @@ const createUser = async (data: Partial<User>) => {
   return createdUserData;
 };
 
+
 export const userService = {
   createUser,
 };
