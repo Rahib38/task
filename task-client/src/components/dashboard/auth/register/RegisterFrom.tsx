@@ -10,7 +10,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function RegisterFrom() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,31 +24,24 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3002/api/v1/auth/login", {
+      const res = await fetch("http://localhost:3002/api/v1/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, email, password }),
       });
 
       const data = await res.json();
-console.log('data',data.data)
-      if(data.success){
-        localStorage.setItem("accessToken",data.data.accessToken)
-        localStorage.setItem("userId",data.data.userId)
-        router.push("/dashboard");
 
+      if (data.success) {
+        // Optionally store token or show success message
+        router.push("/login");
       }
 
       if (!res.ok) {
-        throw new Error(data.message || "Login failed");
+        throw new Error(data.message || "Registration failed");
       }
-
-
-
-      // console.log("✅ Login successful:", data);
-      // You can store token or redirect here
     } catch (err: any) {
       console.error("❌ Error:", err.message);
       setError(err.message);
@@ -58,12 +52,12 @@ console.log('data',data.data)
 
   return (
     <div className="min-h-screen w-full flex bg-gray-200">
-      {/* Left: Image/Gradient Section */}
+      {/* Left: Image Section */}
       <div className="w-1/2 flex items-center justify-center bg-gradient-to-br from-[#0f172a] to-[#1e293b] p-10">
         <div className="relative w-[90%] h-[90%] max-w-md">
           <Image
             src="/banner.png"
-            alt="Login Illustration"
+            alt="Register Illustration"
             fill
             className="object-contain"
           />
@@ -74,13 +68,27 @@ console.log('data',data.data)
       <div className="w-1/2 bg-white flex items-center justify-center px-16">
         <div className="w-full max-w-md space-y-6">
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-900">Login</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Register</h1>
             <p className="text-gray-500 text-sm mt-1">
-              Welcome back! Please enter your details to log in.
+              Create your account to get started.
             </p>
           </div>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
+            <div>
+              <Label htmlFor="name" className="mb-1 block text-sm">
+                Name
+              </Label>
+              <Input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="John Doe"
+                className="text-sm"
+              />
+            </div>
+
             <div>
               <Label htmlFor="email" className="mb-1 block text-sm">
                 Email address
@@ -109,14 +117,9 @@ console.log('data',data.data)
               />
             </div>
 
-            <div className="flex justify-between items-center text-sm text-gray-600">
-              <div className="flex items-center space-x-2">
-                <Checkbox id="remember" />
-                <Label htmlFor="remember">Remember me</Label>
-              </div>
-              <Link href="#" className="text-primary hover:underline">
-                Forgot password?
-              </Link>
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <Checkbox id="terms" />
+              <Label htmlFor="terms">I agree to the terms & conditions</Label>
             </div>
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -126,14 +129,14 @@ console.log('data',data.data)
               disabled={loading}
               className="w-full bg-green-500 hover:bg-green-600 text-white text-sm h-10"
             >
-              {loading ? "Logging in..." : "Log in"}
+              {loading ? "Registering..." : "Register"}
             </Button>
           </form>
 
           <p className="text-center text-sm text-gray-600">
-            Don’t have an account?{" "}
-            <Link href="/register" className="text-primary font-medium hover:underline">
-              Sign up
+            Already have an account?{" "}
+            <Link href="/login" className="text-primary font-medium hover:underline">
+              Log in
             </Link>
           </p>
         </div>
