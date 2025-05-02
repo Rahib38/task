@@ -1,7 +1,8 @@
 "use client";
 
-import { Calendar, Trash2, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Calendar, Trash2, User } from "lucide-react";
+import Link from "next/link";
 
 export type TaskStatus = "Pending" | "InProgress" | "Done";
 
@@ -43,12 +44,14 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
           <div className="bg-green-100 p-2 rounded-full">
             <User className="text-green-600" />
           </div>
-          <div className="flex-1">
-            <h3 className="font-bold text-lg">{task.title}</h3>
-            <p className="text-sm text-gray-600">
-              {task.description || "No description provided."}
-            </p>
-          </div>
+          <Link href={`/dashboard/task/${task.id}`}>
+            <div className="flex-1">
+              <h3 className="font-bold text-lg">{task.title}</h3>
+              <p className="text-sm text-gray-600">
+                {task.description || "No description provided."}
+              </p>
+            </div>
+          </Link>
           <Trash2 className="text-red-500 cursor-pointer" />
         </div>
         <div className="flex items-center justify-between text-sm text-gray-500">

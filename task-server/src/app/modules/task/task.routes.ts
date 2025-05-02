@@ -18,7 +18,7 @@ router.get(
 
 router.get(
   "/:id",
-  auth(UserRole.ADMIN, UserRole.USER),
+  // auth(UserRole.ADMIN, UserRole.USER),
   taskController.getByIdFromDB
 );
 
