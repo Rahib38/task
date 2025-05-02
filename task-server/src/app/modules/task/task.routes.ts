@@ -12,7 +12,7 @@ router.post(
 
 router.get(
   "/",
-  auth(UserRole.ADMIN, UserRole.USER),
+ 
   taskController.getTaskAllFromDB
 );
 

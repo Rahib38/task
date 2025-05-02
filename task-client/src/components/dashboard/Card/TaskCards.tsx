@@ -1,5 +1,3 @@
-// components/dashboard/TaskCard.tsx
-
 "use client";
 
 import { Calendar, Trash2, User } from "lucide-react";
@@ -13,12 +11,30 @@ const statusColors: Record<TaskStatus, string> = {
   Done: "text-green-500",
 };
 
-interface TaskCardProps {
+export type Task = {
+  id: string;
+  title: string;
+  description?: string;
   status: TaskStatus;
+  priority?: string;
+  deadline?: string;
+};
+
+interface TaskCardProps {
+  task: Task;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ status }) => {
-  const statusColor = statusColors[status];
+const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
+  const statusColor = statusColors[task.status];
+
+  const formattedDate = task.deadline
+    ? new Date(task.deadline).toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "No Deadline";
 
   return (
     <Card className="w-full max-w-sm p-4">
@@ -28,10 +44,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ status }) => {
             <User className="text-green-600" />
           </div>
           <div className="flex-1">
-            <h3 className="font-bold text-lg">Art and Craft</h3>
+            <h3 className="font-bold text-lg">{task.title}</h3>
             <p className="text-sm text-gray-600">
-              Select the role that you want to candidates for and upload your
-              job description.
+              {task.description || "No description provided."}
             </p>
           </div>
           <Trash2 className="text-red-500 cursor-pointer" />
@@ -39,9 +54,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ status }) => {
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
-            <span>Friday, April 19 - 2024</span>
+            <span>{formattedDate}</span>
           </div>
-          <span className={`${statusColor}`}>● {status}</span>
+          <span className={`${statusColor}`}>● {task.status}</span>
         </div>
       </CardContent>
     </Card>

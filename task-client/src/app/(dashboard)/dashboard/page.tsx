@@ -1,5 +1,6 @@
 "use client";
 
+import Banner from "@/components/dashboard/Banner/Banner";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -9,23 +10,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Image from "next/image";
-import Navbar from "./Navbar";
-import Banner from "@/components/dashboard/Banner/Banner";
-import TaskCard, { TaskStatus } from "@/components/dashboard/Card/TaskCards";
 import Link from "next/link";
-
+import Navbar from "./Navbar";
+import Card from "./card/page";
 
 export default function Dashboard() {
-  const statuses: TaskStatus[] = [
-    "Pending",
-    "InProgress",
-    "Pending",
-    "InProgress",
-    "Done",
-    "Done",
-    "Pending",
-  ];
-
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Banner */}
@@ -68,15 +57,13 @@ export default function Dashboard() {
               </SelectContent>
             </Select>
           </div>
-          <Link href={"/dashboard/task"}><Button>Add New Task</Button></Link>
+          <Link href={"/dashboard/task"}>
+            <Button>Add New Task</Button>
+          </Link>
         </div>
 
         {/* Task Cards */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {statuses.map((status, idx) => (
-            <TaskCard key={idx} status={status} />
-          ))}
-        </div>
+        <Card/>
       </div>
     </div>
   );
