@@ -30,7 +30,7 @@ router.patch(
 
 router.delete(
   "/:id",
-  auth(UserRole.ADMIN, UserRole.USER),
+  // auth(UserRole.ADMIN, UserRole.USER),
   taskController.deleteIntoDB
 );
 
